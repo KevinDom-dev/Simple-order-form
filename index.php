@@ -13,7 +13,9 @@ function whatIsHappening() {
     echo '<h2>$_SESSION</h2>';
     var_dump($_SESSION);
 }
-$error = $email = $name = $submitOk = $field = $emailError ="";
+
+
+$error = $email = $name = $submitOk = $field = $emailError = "";
 if(isset($_POST['submit'])) {
     if (empty($_POST["email"])) {
         $emailError = "Email is required";
@@ -26,15 +28,24 @@ if(isset($_POST['submit'])) {
             }
     }
     $name = array('street', 'streetnumber', 'city', 'zipcode');
-    $error = false;
-    foreach($name as $field) {
+    $errorTxt = " is required.";
+    $numberErr = " should be a number.";
+    $errors = array();
+    $noError = array();
+    $error = array();
+    foreach($name as $i => $field) {
         if (empty($_POST[$field])) {
-            $error = "All fields are required.";
+            $error[] = $name[$i] . $errorTxt;
+        } else if (!is_numeric($_POST["streetnumber"])) {
+            $error[1] = $name[1] . $numberErr;
+        } else if (!is_numeric($_POST["zipcode"])){
+            $error[3] = $name[3] . $numberErr;
         } else {
-           echo $_POST["$name"];
+            $error[] = $_POST[$field];
         }
     }
 }
+whatIsHappening();
 /*
  *    $name = array('street', 'streetnumber', 'city', 'zipcode', 'email');
     $error = false;

@@ -1,6 +1,3 @@
-<?php
-
-?>
 
 <!doctype html>
 <html lang="en">
@@ -42,21 +39,21 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="street">Street:</label>
-                    <input type="text" name="street" id="street" class="form-control" value="<?php echo $error ?>">
+                    <input type="text" name="street" id="street" class="form-control" value="<?php echo $error[0] ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="streetnumber">Street number:</label>
-                    <input type="text" id="streetnumber" name="streetnumber" class="form-control" value="<?php echo $error ?>">
+                    <input type="text" id="streetnumber" name="streetnumber" class="form-control" value="<?php echo $error[1] ?>">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="city">City:</label>
-                    <input type="text" id="city" name="city" class="form-control" value="<?php echo $error ?>">
+                    <input type="text" id="city" name="city" class="form-control" value="<?php echo $error[2]  ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="zipcode">Zipcode</label>
-                    <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo $error ?>">
+                    <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo $error[3]  ?>">
                 </div>
             </div>
         </fieldset>
