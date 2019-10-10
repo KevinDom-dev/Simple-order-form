@@ -3,6 +3,7 @@
 declare(strict_types=1);
 //we are going to use session variables so we need to enable sessions
 session_start();
+
 function whatIsHappening() {
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
@@ -15,8 +16,15 @@ function whatIsHappening() {
 }
 
 
-$error = $email = $name = $submitOk = $field = $emailError = "";
+$error = $email = $name = $submitOk = $field = $emailError = $message = $calc = "";
+$products = $product = [];
 if(isset($_POST['submit'])) {
+    $name = array('street', 'streetnumber', 'city', 'zipcode');
+    $errorTxt = " is required.";
+    $numberErr = " should be a number.";
+    $errors = array();
+    $noError = array();
+    $error = array();
     if (empty($_POST["email"])) {
         $emailError = "Email is required";
     } else {
@@ -27,12 +35,6 @@ if(isset($_POST['submit'])) {
             $submitOk = "<i>Order sent</i>";
             }
     }
-    $name = array('street', 'streetnumber', 'city', 'zipcode');
-    $errorTxt = " is required.";
-    $numberErr = " should be a number.";
-    $errors = array();
-    $noError = array();
-    $error = array();
     foreach($name as $i => $field) {
         if (empty($_POST[$field])) {
             $error[] = $name[$i] . $errorTxt;
@@ -43,6 +45,13 @@ if(isset($_POST['submit'])) {
         } else {
             $error[] = $_POST[$field];
         }
+    }
+    if (empty($_POST['formDelivery'])) {
+        $message .= "<li>You forgot to select your preferred delivery type!</li>";
+    } elseif ($_POST['formDelivery'] = "Express")  {
+        $message .= "<li>Your order will be delivered in 45 minutes.</li>";
+    } else {
+        $message .= "<li>Your order will be delivered in 2 hours.</li>";
     }
 }
 whatIsHappening();
@@ -61,19 +70,37 @@ whatIsHappening();
     }
  */
 
+
+
 //your products with their price.
-$products = [
-    ['name' => 'Club Ham', 'price' => 3.20],
-    ['name' => 'Club Cheese', 'price' => 3],
-    ['name' => 'Club Cheese & Ham', 'price' => 4],
-    ['name' => 'Club Chicken', 'price' => 4],
-    ['name' => 'Club Salmon', 'price' => 5]
-];
-$products = [
-    ['name' => 'Cola', 'price' => 2],
-    ['name' => 'Fanta', 'price' => 2],
-    ['name' => 'Sprite', 'price' => 2],
-    ['name' => 'Ice-tea', 'price' => 3],
-];
+$productPrice = [];
+$product = [];
+
+if(isset($_GET['food']) && $_GET['food'] == 0) {
+    $products = [
+        ['name' => 'Cola', 'price' => 2],
+        ['name' => 'Fanta', 'price' => 2],
+        ['name' => 'Sprite', 'price' => 2],
+        ['name' => 'Ice-tea', 'price' => 3],
+    ];
+    if ($_POST['products']){
+        foreach ($productPrice as $key => $product["price"]) {
+             $calc = array_sum($productPrice);
+            var_dump($calc);
+        }
+    }
+} else {
+    $products = [
+        ['name' => 'Club Ham', 'price' => 3.20],
+        ['name' => 'Club Cheese', 'price' => 3],
+        ['name' => 'Club Cheese & Ham', 'price' => 4],
+        ['name' => 'Club Chicken', 'price' => 4],
+        ['name' => 'Club Salmon', 'price' => 5]
+    ];
+    if ($_POST['products']){
+        $totalValue = array_sum($products);
+    }
+}
+
 $totalValue = 0;
 require 'form-view.php';

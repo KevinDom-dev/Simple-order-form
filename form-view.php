@@ -30,9 +30,15 @@
                 <label for="email">E-mail:</label>
                 <input type="text" id="email" name="email" class="form-control" value="<?php echo $emailError ?>"/>
             </div>
-            <div></div>
         </div>
-
+        <p>What is your preferred delivery type?
+            <select name="formDelivery">
+                <option value="">Select Delivery Type</option>
+                <option value="Express">Express</option>
+                <option value="Regular">Regular</option>
+            </select>
+            <label><?php echo $message ?>  </label>
+        </p>
         <fieldset>
             <legend>Address</legend>
 
